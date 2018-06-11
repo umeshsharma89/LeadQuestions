@@ -1,0 +1,74 @@
+ Question B
+ 
+ 1. What improvements can be made? 
+ - Code reusability as it is important for future prospective. 
+ - Code optamization - As we can write less code to make it clean and optimized.
+ 
+ 2. What SOLID principle(s) can help here?
+ - Single responsiblity principle
+ - Open-closed principle
+ - Dependency Injections - Repository design pattern
+ 
+ 3. What is the best architectural decision? 
+ - Loose coupling - best for single responsibility and separation of concerns.
+ 
+ 
+>>
+ 
+class A 
+{
+	private readonly ISendMail _sendMail;
+	public A(ISendMail sendMail)
+	{
+		_sendMail = sendMail;
+	}
+	private void SolveBinomial()
+	{
+		// Do work ...
+		// Send email ...
+		_sendMail.SendEmail("jane@contoso.com", "Jane Clayton", "test message1", "ben@contoso.com", "Hi Ben, this is Jane, how's it going?");
+	}
+}
+
+class B
+{
+	private readonly ISendMail _sendMail;
+	public B(ISendMail sendMail)
+	{
+		_sendMail = sendMail;
+	}
+	public void SolveTrinomial()
+	{
+		// Do work ...
+		// Send email ...
+		_sendMail.SendEmail("bob@contoso.com", "Bob Doe", "sarah@contoso.com", "test message1", "Hi Sarah, here are the calculations...");
+	}
+}
+
+interface ISendMail
+{
+	void SendEmail(string fromEmail, string name, string toEmail, string subject, string body);            
+}
+
+public class SendMail: ISendMail
+{
+	bool isMailSuccess = false;
+	public void SendEmail(string fromEmail, string name, string toEmail, string subject, string body)
+	{
+		string[] args = new string[0];
+		SmtpClient client = new SmtpClient(args[0]);
+		MailAddress from = new MailAddress(fromEmail, name, System.Text.Encoding.UTF8);
+		MailAddress to = new MailAddress(toEmail);
+		MailMessage message = new MailMessage(from, to);
+		message.Body = body;
+		client.SendCompleted += new SendCompletedEventHandler(SendCompletedCallbackEventHandler);
+		string userState = subject;
+		client.SendAsync(message, userState);
+		message.Dispose();
+	}
+	private void SendCompletedCallbackEventHandler(object sender, AsyncCompletedEventArgs e)
+	{
+		//Todo 
+		isMailSuccess = true;
+	}
+}
