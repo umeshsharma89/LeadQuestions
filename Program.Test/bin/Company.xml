@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Company xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>54246cbc-7492-49a5-80bb-e7240896fc86</Id>
+  <Name>Google</Name>
+  <Address>
+    <AddressLine>test</AddressLine>
+    <State>test2</State>
+    <Country>test1</Country>
+    <Pincode>123456</Pincode>
+  </Address>
+</Company>
